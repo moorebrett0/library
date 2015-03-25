@@ -37,7 +37,7 @@
         static function getAll()
         {
             $returned_authors = $GLOBALS['DB']->query("SELECT * FROM authors;");
-            $authors = array();
+            $authors = [];
             foreach ($returned_authors as $author) {
                 $name = $author['name'];
                 $id = $author['id'];
@@ -55,12 +55,36 @@
             $this->setId($result['id']);
         }
 
-        //DELETE EVERYTHING
+        //DELETE
         static function deleteAll()
         {
             $GLOBALS['DB']->exec("DELETE FROM authors *;");
         }
 
+        function delete()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM authors Where id = {$this->getId()};");
+            $GLOBALS['DB']->exec("DELETE FROM authors_books WHERE author_id = {$this->getId()};");
+        }
+
+        //find author by ID
+        static function find($search_id)
+        {
+            $found_author = null;
+            $authors = Author::getAll();
+            foreach($authors as $author){
+                $author_id = $author->getId();
+                if ($author_id == $search_id) {
+                    $found_author = $author;
+                }
+            }
+            return $found_author;
+        }
+
+        function addBook($title)
+        {
+            $GLOBALS['DB']->exec("INSERT INTO authors_books (author_id, book_id) VALUES ({$this->getId()}, {$title->getId()});");
+        }
 
     }
 
