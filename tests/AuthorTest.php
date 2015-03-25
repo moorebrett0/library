@@ -108,27 +108,27 @@
                 $this->assertEquals($test_author, $result);
             }
 
-            // function test_delete()
-            // {
-            //     //Arrange
-            //     $name = "JK Rawling";
-            //     $id = 1;
-            //     $test_author = new Author($name, $id);
-            //     $test_author->save();
-            //
-            //     $title = "Harry Potter and the Philosophers Stone";
-            //     $id2 = 2;
-            //     $test_book = new Book($title, $id2);
-            //     $test_book->save();
-            //
-            //     //Act
-            //     $test_author->addBook($test_book);
-            //     $test_author->delete();
-            //
-            //     //Assert
-            //     $this->assertEquals([], $test_book->getAuthors());
-            //
-            // }
+            function test_delete()
+            {
+                //Arrange
+                $name = "JK Rawling";
+                $id = 1;
+                $test_author = new Author($name, $id);
+                $test_author->save();
+
+                $title = "Harry Potter and the Philosophers Stone";
+                $id2 = 2;
+                $test_book = new Book($title, $id2);
+                $test_book->save();
+
+                //Act
+                $test_author->addBook($test_book);
+                $test_author->delete();
+
+                //Assert
+                $this->assertEquals([], $test_book->getAuthors());
+
+            }
 
         }
 
