@@ -128,6 +128,23 @@
                 $this->assertEquals($test_book->getAuthors(), [$test_author]);
             }
 
+            function test_update()
+            {
+                //Arrange
+                $title = "Moby Dick";
+                $id = 1;
+                $test_book = new Book($title, $id);
+                $test_book->save();
+
+                $new_title = "Peter Pan";
+
+                //Act
+                $test_book->update($new_title);
+
+                //Assert
+                $this->assertEquals("Peter Pan", $test_book->getTitle());
+            }
+
         }
 
 ?>

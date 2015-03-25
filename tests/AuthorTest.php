@@ -130,6 +130,23 @@
 
             }
 
+            function test_update()
+            {
+                //Arrange
+                $name = "JK Rawling";
+                $id = 1;
+                $test_author = new Author($name, $id);
+                $test_author->save();
+
+                $new_name = "CS Lewis";
+
+                //Act
+                $test_author->update($new_name);
+
+                //Assert
+                $this->assertEquals("CS Lewis", $test_author->getName());
+            }
+
         }
 
 ?>
