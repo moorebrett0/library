@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <title>Epicodus Library | Admin</title>
+    </head>
+    <body>
+        <h1>Welcome Admin</h1>
+        <h2>Here are all the books:</h2>
+        {% if authors is not empty %}
+        <p>Here are all your Authors:</p>
+        <ul>
+            {% for author in authors %}
+                <li><a href="/authors/{{ author.getId }}">{{ author.getName }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form action='/authors' method='post'>
+        <label for='name'>Author name</label>
+        <input id='name' name='name' type='text' required>
+
+        <button type='submit'>Add Author</button>
+    </form>
+    <form action='/authors' method='post'>
+        <input type="hidden" name="_method" value="delete">
+
+        <button type='submit'>Clear</button>
+    </form>
+
+    <p><a href='/'>Home</a></p>
+    </body>
+</html>
