@@ -70,7 +70,7 @@
         function delete()
         {
             $GLOBALS['DB']->exec("DELETE FROM authors Where id = {$this->getId()};");
-            $GLOBALS['DB']->exec("DELETE FROM authors_books WHERE author_id = {$this->getId()};");
+            $GLOBALS['DB']->exec("DELETE FROM authors_books WHERE authors_id = {$this->getId()};");
         }
 
         //find author by ID
@@ -87,9 +87,29 @@
             return $found_author;
         }
 
+        function getBooks()
+        {
+            $query = $GLOBALS['DB']->query("SELECT books.* FROM authors JOIN authors_books ON authors.id = authors_books.authors_id JOIN books ON books.id =authors_books.books_id  WHERE authors.id = {$this->getId()}; ");
+
+            $book_ids = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            $books = [];
+            foreach($book_ids as $id) {
+                $book_id = $id['books_id'];
+                $result = $GLOBALS['DB']->query("SELECT * FROM books WHERE id = {$book_id};");
+                $returned_book = $result->fetchAll(PDO::FETCH_ASSOC);
+
+                $title = $returned_book[0]['title'];
+                $id = $returned_book[0]['id'];
+                $new_book = new Book($title, $id);
+                array_push($books, $new_book);
+            }
+            return $books;
+        }
+
         function addBook($title)
         {
-            $GLOBALS['DB']->exec("INSERT INTO authors_books (author_id, book_id) VALUES ({$this->getId()}, {$title->getId()});");
+            $GLOBALS['DB']->exec("INSERT INTO authors_books (authors_id, books_id) VALUES ({$this->getId()}, {$title->getId()});");
         }
 
     }

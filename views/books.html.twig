@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <title>Epicodus Library | Books</title>
+    </head>
+    <body>
+        {% if books is not empty %}
+            <h3>Your books</h3>
+            <ul>
+                <li>{{ book.getName }}</li>
+            </ul>
+        {% endif %}
+        <form action="/books/{id}" method="post" class="form">
+            <input type="text" name="title" id="title" placeholder="Book Title">
+            <button type="submit">Submit</button>
+        </form>
+
+    </body>
+</html>

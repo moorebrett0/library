@@ -146,7 +146,28 @@
                 //Assert
                 $this->assertEquals("CS Lewis", $test_author->getName());
             }
+            function test_getBook()
+            {
+                //Arrange
+                $name = "JK Rawling";
+                $id = 1;
+                $test_author = new Author($name, $id);
+                $test_author->save();
 
+                $title = "Harry Potter and the Philosophers Stone";
+                $id2 = 2;
+                $test_book = new Book($title, $id2);
+                $test_book->save();
+
+                //Act
+                $result = $test_author->getBooks();
+
+                //Assert
+                $this->assertEquals($title, $result);
+
+
+
+            }
         }
 
 ?>
